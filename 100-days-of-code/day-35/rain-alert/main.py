@@ -4,7 +4,7 @@ from requests import get
 from twilio.rest import Client
 from twilio.http.http_client import TwilioHttpClient
 
-api_key = "11d855f0e97fd09d8384fc18e10f89f7"
+api_key = ""
 account_sid = ""
 auth_token = ""
 
