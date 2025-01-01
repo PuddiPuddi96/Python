@@ -9,8 +9,8 @@ INSTAGRAM_URL = "https://www.instagram.com/"
 SIMILAR_ACCOUNT = "casaragusa"
 INSTAGRAM_URL_FOLLOWERS = f"https://www.instagram.com/{SIMILAR_ACCOUNT}/followers"
 
-INSTAGRAM_USERNAME = "stria96_8n8nwyk"
-INSTAGRAM_PASSWORD = "UffaAdessoBasta1289!?#@"
+INSTAGRAM_USERNAME = ""
+INSTAGRAM_PASSWORD = ""
 
 class InstaFollower():
 
