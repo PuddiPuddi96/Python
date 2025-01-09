@@ -1,8 +1,20 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,request
 from post import Post
 from requests import get
 
-def get_posts():
+import smtplib
+
+EMAIL = ""
+PASSWORD = ""
+
+def __send_email(name, email, phone, message):
+    email_message = f"Subject:Message from blog\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage:{message}"
+    with smtplib.SMTP("smtp.gmail.com") as connection:
+        connection.starttls()
+        connection.login(EMAIL, PASSWORD)
+        connection.sendmail(from_addr=email, to_addrs=EMAIL, msg=email_message)
+
+def __get_posts():
     posts = get("https://api.npoint.io/3a74d1849e973ce66263").json()
     post_objects = []
     for post in posts:
@@ -17,9 +29,11 @@ def get_posts():
         post_objects.append(post_obj)
     return post_objects
 
-posts = get_posts()
+posts = __get_posts()
 
 app = Flask(__name__)
+
+
 
 @app.route('/')
 def home():
@@ -34,12 +48,15 @@ def get_post(post_id:int):
     return render_template('post.html', post=post_to_render)
 
 @app.route('/about')
-def get_about_page():
+def about():
     return render_template('about.html')
 
-@app.route('/contact')
-def get_contact_page():
-    return render_template('contact.html')
+@app.route('/contact', methods=["GET", "POST"])
+def contact():
+    if request.method == 'POST':
+        return render_template('contact.html', is_message_send=True)
+    return render_template('contact.html', is_message_send=False)
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
