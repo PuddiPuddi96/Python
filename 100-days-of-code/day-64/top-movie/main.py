@@ -3,10 +3,9 @@ from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Float
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FloatField
-from wtforms.validators import DataRequired
 from movie_utils import MovieUtils
+from rate_movie_form import RateMovieForm
+from add_movie_form import AddMovieForm
 
 MOVIE_DB_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 
@@ -19,7 +18,6 @@ class Base(DeclarativeBase):
     pass
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///movie.db"
-
 
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
@@ -35,9 +33,9 @@ class Movie(db.Model):
     review: Mapped[str] = mapped_column(String(250), nullable=False)
     img_url: Mapped[str] = mapped_column(String(250), nullable=False)
 
-    # Optional: this will allow each book object to be identified by its title when printed.
+    # Optional: this will allow each movie object to be identified by its title when printed.
     def __repr__(self):
-        return f'<Book {self.title}>'
+        return f'<Movie {self.title}>'
 
 # Create table schema in the database. Requires application context.
 with app.app_context():
@@ -72,21 +70,6 @@ with app.app_context():
 #     db.session.commit()
 
 #---------- [END] Database configuration ----------#
-
-#---------- [START] FORM TO EDIT ----------#
-class RateMovieForm(FlaskForm):
-    rating = FloatField(label='Your rating out of 10 e.g. 7.5', validators=[DataRequired()])
-    review = StringField(label='Your review', validators=[DataRequired()])
-
-    submit = SubmitField(label='Done')
-#---------- [END] FORM TO EDIT ----------#
-
-#---------- [START] FORM TO ADD ----------#
-class AddMovieForm(FlaskForm):
-    title = StringField(label='Movie title', validators=[DataRequired()])
-
-    submit = SubmitField(label='Add movie')
-#---------- [END] FORM TO ADD ----------#
 
 @app.route("/")
 def home():
