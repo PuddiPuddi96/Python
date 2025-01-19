@@ -1,0 +1,54 @@
+#------------ 493 ------------#
+
+inizializzazione repository: git init
+
+vedere lo status dei file: git status
+
+spostare un file nella stage area: git add filename
+spostere tutti i file della CD nella stage area: git add .
+rimuovere tutti i file della CD dalla stage area: git rm --cached -r .
+
+committare i file presente nella stage area: git commit -m "a message"
+
+storico: git log
+
+annullare le modifiche
+    mostrare le modifiche effettuate: git diff filename
+    tornare alla versione precedente: git checkout filename
+
+#------------ 494 ------------#
+
+creare un repository:
+    dal sito di github creare una repository pubblica
+    usare il comando git remote origin <repository url> per effettuare l'unione
+    git push -origin main: effettua la push da locale a remoto
+
+#------------ 495 ------------#
+Come creare un gitignore
+    creare un file col nome '.gitignore': touch .gitignore
+    per selezionare specifici file inserire il nome del file es. secrets.txt
+    per selezionare tutti i file con una specifica estensione inserire *.estensione
+        *.txt -> tutti i file di tipo txt
+    
+    template: https://github.com/github/gitignore
+
+#------------ 496 ------------#
+    Copiare un repository: git clone <repository URL>
+
+#------------ 497 ------------#
+creare un nuovo branch: git branch <branch name>
+mostrare branch: git branch
+spostarsi di branch: git checkout <branch name>
+effettuare merge:
+    spostarsi sul branch principale: git checkout main
+    effettuare merge di un branch verso il branch prinicpale: git merge <merge name>
+    effettuare push: git push origin main -u
+
+#------------ 499 ------------#
+Creare una copia della repository sul proprio git -> fork:
+    Seleziono una repository di un utente, seleziono fork daL menu
+        In questo modo ho una copia del repository sotto il mio nome
+    Dopo aver effettuato delle modfiche faccio il commit
+    Posso fare una pull request verso la repository originale
+    Dal profilo dell'autore orgininale posso vedere le PR che sono arrivate e accettarle o rifiutarle.
+        Se le accetto il progetto originale viene modificato
