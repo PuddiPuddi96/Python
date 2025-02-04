@@ -42,23 +42,23 @@ file_path = None
 
 window = Tk()
 
-window.minsize(height=500, width=500)
+window.minsize(height=300, width=400)
 window.title('Add watermarking')
 window.config(padx=10, pady=10)
 
 info_label = Label(text='Type the watermaking to add:')
-info_label.pack(pady=10)
+info_label.grid(row=0, column=0, padx=10, pady=10)
 
-watermaking_entry = Entry(width=15)
-watermaking_entry.pack(pady=10)
+watermaking_entry = Entry(width=30)
+watermaking_entry.grid(row=1, column=0, padx=10, pady=10)
 
 btn_upload = Button(text="Carica Immagine", command=upload_image)
-btn_upload.pack(pady=10)
+btn_upload.grid(row=2, column=0, padx=10, pady=10)
 
 panel = Label(window)
-panel.pack(pady=10)
+panel.grid(row=3, column=0, padx=10, pady=10)
 
 confirm_button = Button(text='Add', command=add_watermarker, width=10)
-confirm_button.pack(pady=10)
+confirm_button.grid(row=4, column=0, padx=10)
 
 window.mainloop()
