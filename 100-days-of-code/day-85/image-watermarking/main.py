@@ -6,64 +6,30 @@ def add_watermarker():
 
     if image and file_path:
         with Image.open(file_path).convert('RGBA') as image:
-            # Crea un livello trasparente
-            txt_layer = Image.new("RGBA", image.size, (255, 255, 255, 0))
-            draw = ImageDraw.Draw(txt_layer)
-            font = ImageFont.load_default()
-            text = 'watermarker'
-
             width, height = image.size
 
-            # Calcola la dimensione del testo
-            bbox = draw.textbbox((0, 0), text, font=font)
-            text_width, text_height = bbox[2] - bbox[0], bbox[3] - bbox[1]
+            # make a blank image for the text, initialized to transparent text color
+            txt = Image.new('RGBA', image.size, (255,255,255,0))
 
-            # Crea un'immagine separata abbastanza grande per la rotazione
-            padding = 50  # Aggiunge spazio per evitare il ritaglio
-            text_img = Image.new("RGBA", (text_width + padding, text_height + padding), (255, 255, 255, 0))
-            text_draw = ImageDraw.Draw(text_img)
+            # get a font
+            font = ImageFont.load_default(size=40)
+            # get a drawing context
+            d = ImageDraw.Draw(txt)
 
-            # Disegna il testo con colore semi-trasparente
-            text_color = (255, 255, 255, 120)  # Bianco semi-trasparente
-            text_draw.text((padding // 2, padding // 2), text, font=font, fill=text_color)
+            x = width/2
+            y = height/2
 
-            # Ruota il testo di 45 gradi
-            text_img = text_img.rotate(45, expand=True)
+            # draw text, half opacity
+            d.text((x,y), "Watermark", font=font, fill=(255,255,255,128))
+            txt = txt.rotate(45)
 
-            # Calcola la posizione per centrare il testo ruotato
-            text_x = (width - text_img.width) // 2
-            text_y = (height - text_img.height) // 2
-
-            # Incolla il testo sul livello trasparente con la maschera
-            txt_layer.paste(text_img, (text_x, text_y), text_img)
-
-            # Combina l'immagine originale con il watermark
-            watermarked_image = ImageTk.PhotoImage(Image.alpha_composite(image, txt_layer).resize((300,300), Image.LANCZOS))
+            w_i = Image.alpha_composite(image, txt)
+            w_i = ImageOps.cover(w_i, (300, 300))
+            watermarked_image = ImageTk.PhotoImage(w_i)
 
             panel.config(image=watermarked_image)
             panel.image = watermarked_image
             
-            
-            
-            
-            
-            
-            # width, height = image.size
-            # x = width / 2
-            # y = height / 2
-
-            # watermark_text = Image.new('RGBA', image.size, (255,255,255,0))
-            # watermark_font = ImageFont.truetype('arial.ttf', 40)
-
-            # watermark_draw = ImageDraw.Draw(watermark_text)
-
-            # watermark_draw.text((x,y), 'WATERMARKER', font=watermark_font, fill=(255,255,255,128))
-            # watermark_text = watermark_text.rotate(45)
-
-            # final_image = Image.alpha_composite(image.convert('RGBA'), watermark_text)
-
-            # panel.config(image=final_image)
-            # panel.image = final_image
 
 def upload_image():
     global image, file_path
