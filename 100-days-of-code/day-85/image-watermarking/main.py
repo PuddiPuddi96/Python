@@ -1,29 +1,32 @@
 from tkinter import Tk, Label, Entry, Button, filedialog
 from PIL import Image, ImageTk, ImageOps, ImageDraw, ImageFont
 
-def add_watermarker():
+def add_watermarker(watermark_text:str):
     global image, file_path
 
     if image and file_path:
         with Image.open(file_path).convert('RGBA') as image:
-            width, height = image.size
-
             # make a blank image for the text, initialized to transparent text color
-            txt = Image.new('RGBA', image.size, (255,255,255,0))
+            image_for_text = Image.new('RGBA', image.size, (255,255,255,0))
 
-            # get a font
-            font = ImageFont.load_default(size=40)
-            # get a drawing context
-            d = ImageDraw.Draw(txt)
+            watermark_font = ImageFont.load_default(size=40)
+            drawing_context = ImageDraw.Draw(image_for_text)
 
-            x = width/2
-            y = height/2
+            # Center position
+            width, height = image.size
+            x = width / 2
+            y = height / 2
 
-            # draw text, half opacity
-            d.text((x,y), "Watermark", font=font, fill=(255,255,255,128))
-            txt = txt.rotate(45)
+            # draw text
+            drawing_context.text(
+                (x,y),
+                watermark_text,
+                font=watermark_font,
+                fill=(255,255,255,128)
+            )
+            image_for_text = image_for_text.rotate(45)
 
-            w_i = Image.alpha_composite(image, txt)
+            w_i = Image.alpha_composite(image, image_for_text)
             w_i = ImageOps.cover(w_i, (300, 300))
             watermarked_image = ImageTk.PhotoImage(w_i)
 
@@ -66,7 +69,7 @@ btn_upload.grid(row=2, column=0, padx=10, pady=10)
 panel = Label(window)
 panel.grid(row=3, column=0, padx=10, pady=10)
 
-confirm_button = Button(text='Add', command=add_watermarker, width=10)
+confirm_button = Button(text='Add', command=lambda: add_watermarker(watermaking_entry.get()), width=10)
 confirm_button.grid(row=4, column=0, padx=10)
 
 window.mainloop()
