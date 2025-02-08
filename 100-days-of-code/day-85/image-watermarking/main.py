@@ -9,7 +9,7 @@ def add_watermarker(watermark_text:str):
             # make a blank image for the text, initialized to transparent text color
             image_for_text = Image.new('RGBA', image.size, (255,255,255,0))
 
-            watermark_font = ImageFont.load_default(size=40)
+            watermark_font = ImageFont.truetype("../image-watermarking/fonts/oswald.regular.ttf", 100)
             drawing_context = ImageDraw.Draw(image_for_text)
 
             # Center position
