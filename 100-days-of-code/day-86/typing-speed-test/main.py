@@ -5,6 +5,7 @@ TITLE_FONT = ("Arial", 16, "bold")
 SUBTITLE_FONT = ("Arial", 12)
 SCORE_FONT = ("Arial", 10)
 WORDS_FONT = ("Arial", 12)
+INPUT_FONT = ("Arial", 12)
 
 # Creazione della finestra principale
 root = tk.Tk()
@@ -33,7 +34,7 @@ words_label = tk.Label(words_frame, text="Parola 1, Parola 2, Parola 3", font=WO
 words_label.pack(pady=10)
 
 # input
-entry = tk.Entry(root, font=("Arial", 12))
+entry = tk.Entry(root, font=INPUT_FONT)
 entry.pack(pady=10)
 
 root.mainloop()
