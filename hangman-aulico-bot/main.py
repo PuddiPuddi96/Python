@@ -1,19 +1,20 @@
 from typing import Final
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+from default_messages import START_COMMAND_MESSAGE, HELP_COMMAND_MESSAGE, CUSTOM_COMMAND_MESSAGE, BOT_USERNAME
 
 TOKEN: Final = ""
-BOT_USERNAME = "@hangman_aulico_bot"
+
 
 # ------------------------------COMMANDS------------------------------#
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Start command")
+    await update.message.reply_text(START_COMMAND_MESSAGE)
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Help command")
+    await update.message.reply_text(HELP_COMMAND_MESSAGE)
 
 async def custom_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Custom command")
+    await update.message.reply_text(CUSTOM_COMMAND_MESSAGE)
 
 # ------------------------------RESPONSES------------------------------#
 def handle_response(text: str) -> str:
