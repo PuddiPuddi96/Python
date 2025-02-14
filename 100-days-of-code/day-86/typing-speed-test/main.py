@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 
 TITLE_FONT = ("Arial", 16, "bold")
 SUBTITLE_FONT = ("Arial", 12)
