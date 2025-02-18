@@ -19,6 +19,10 @@ async def custom_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def info_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(INFO_COMMAND_MESSAGE)
 
+# ------------------------------GAME COMMANDS--------------------------#
+async def start_game_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text('')
+
 # ------------------------------RESPONSES------------------------------#
 def handle_response(text: str) -> str:
     processed: str = text.lower()
@@ -61,6 +65,7 @@ if __name__ == '__main__':
     app.add_handler(CommandHandler('help', help_command))
     app.add_handler(CommandHandler('custom', custom_command))
     app.add_handler(CommandHandler('info', info_command))
+    app.add_handler(CommandHandler('start', start_game_command))
 
     app.add_handler(MessageHandler(filters.TEXT, handle_message))
 
