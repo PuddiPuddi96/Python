@@ -7,9 +7,14 @@ def add_watermarker(watermark_text:str):
     if image and file_path:
         with Image.open(file_path).convert('RGBA') as image:
             # make a blank image for the text, initialized to transparent text color
-            image_for_text = Image.new('RGBA', image.size, (255,255,255,0))
+            image_for_text = Image.new(
+                'RGBA', 
+                image.size, (255,255,255,0)
+                )
 
-            watermark_font = ImageFont.truetype("../image-watermarking/fonts/oswald.regular.ttf", 100)
+            watermark_font = ImageFont.truetype(
+                "../image-watermarking/fonts/oswald.regular.ttf", 100
+                )
             drawing_context = ImageDraw.Draw(image_for_text)
 
             # Center position
@@ -36,9 +41,7 @@ def add_watermarker(watermark_text:str):
 
 def upload_image():
     global image, file_path
-    file_path = filedialog.askopenfilename(
-        filetypes=[("Image Files", "*.png;*.jpg;*.jpeg")]
-        )
+    file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg")])
     if file_path:
         with Image.open(file_path) as image:
             image = ImageOps.cover(image, (300, 300))
@@ -69,7 +72,10 @@ btn_upload.grid(row=2, column=0, padx=10, pady=10)
 panel = Label(window)
 panel.grid(row=3, column=0, padx=10, pady=10)
 
-confirm_button = Button(text='Add', command=lambda: add_watermarker(watermaking_entry.get()), width=10)
+confirm_button = Button(
+    text='Add', 
+    command=lambda: add_watermarker(watermaking_entry.get()), 
+    width=10)
 confirm_button.grid(row=4, column=0, padx=10)
 
 window.mainloop()
